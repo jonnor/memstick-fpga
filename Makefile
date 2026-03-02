@@ -54,7 +54,7 @@ analyze-work: analyze-libs
 	$(GHDL) -a $(GHDL_FLAGS) --work=work $(WORK_SRCS)
 
 $(JSON): analyze-work
-	$(YOSYS) -p 'ghdl $(GHDL_FLAGS) $(WORK_SRCS) -e $(TOP); synth_ice40 -json $@'
+	$(YOSYS) -p 'ghdl --latches $(GHDL_FLAGS) $(WORK_SRCS) -e $(TOP); synth_ice40 -json $@'
 
 clean:
 	rm -rf $(WDIR) $(JSON)

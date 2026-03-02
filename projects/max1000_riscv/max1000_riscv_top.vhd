@@ -212,7 +212,7 @@ Disabled - triggers a GHDL, discriminant check failed
       debug => open
     );
 
-/*
+
   u_lcd : entity utils.spi_lcd
     port map (
       clk_200k => clk_200k,
@@ -229,7 +229,6 @@ Disabled - triggers a GHDL, discriminant check failed
       rack    => xbar_b_rack,
       debug   => open
     );
-*/
 
   u_uart : entity utils.uart_cpu
     port map (
