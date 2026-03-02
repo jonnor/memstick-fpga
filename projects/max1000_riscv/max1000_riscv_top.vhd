@@ -110,8 +110,13 @@ begin
       dout => reset_200k_vec
     );
 
+
   -- Synchronize reset deassertion into clk_200k domain.
   reset_200k <= reset_200k_vec(0);
+
+
+/*
+Disabled - triggers a GHDL, discriminant check failed
 
   u_cpu : entity rv32i.rv32i
     port map (
@@ -123,6 +128,7 @@ begin
       RW    => rw,
       rreq  => rreq
     );
+*/
 
   u_xbar : entity utils.crossbar
     generic map ( g_num_ports => 4 )
@@ -146,14 +152,13 @@ begin
 		addr_s(2) 		=> xbar_c_addr,
 		addr_s(3) 		=> xbar_d_addr,
 
-        /* 
-        FIXME: stubbed out. Causes multiple-assignment issues,
-        because peripherals also write directly to this
-		data_s(0) 		=> xbar_a_data,
-		data_s(1) 		=> xbar_b_data,
-		data_s(2) 		=> xbar_c_data,
-		data_s(3) 		=> xbar_d_data,
-        */
+
+        --FIXME: stubbed out. Causes multiple-assignment issues,
+        -- because peripherals also write directly to this
+		-- data_s(0) 		=> xbar_a_data,
+		-- data_s(1) 		=> xbar_b_data,
+		-- data_s(2) 		=> xbar_c_data,
+		-- data_s(3) 		=> xbar_d_data,
 
 		rreq_s(0) 		=> xbar_a_rreq,
 		rreq_s(1) 		=> xbar_b_rreq,
@@ -207,6 +212,7 @@ begin
       debug => open
     );
 
+/*
   u_lcd : entity utils.spi_lcd
     port map (
       clk_200k => clk_200k,
@@ -223,6 +229,7 @@ begin
       rack    => xbar_b_rack,
       debug   => open
     );
+*/
 
   u_uart : entity utils.uart_cpu
     port map (
