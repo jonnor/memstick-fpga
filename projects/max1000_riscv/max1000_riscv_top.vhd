@@ -110,13 +110,8 @@ begin
       dout => reset_200k_vec
     );
 
-
   -- Synchronize reset deassertion into clk_200k domain.
   reset_200k <= reset_200k_vec(0);
-
-
-/*
-Disabled - triggers a GHDL, discriminant check failed
 
   u_cpu : entity rv32i.rv32i
     port map (
@@ -128,7 +123,6 @@ Disabled - triggers a GHDL, discriminant check failed
       RW    => rw,
       rreq  => rreq
     );
-*/
 
   u_xbar : entity utils.crossbar
     generic map ( g_num_ports => 4 )

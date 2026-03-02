@@ -77,6 +77,7 @@ architecture rtl of rv32i is
 
 begin
 
+
     -- I think this saves me for all that of checking on source registers
     GPR_RS1 <= (others => '0') when RS1 = 0 else GPR(RS1);
     GPR_RS2 <= (others => '0') when RS2 = 0 else GPR(RS2);
@@ -116,6 +117,7 @@ begin
 
     begin
 
+
         if falling_edge(clk) then
             if reset = '1' then
 
@@ -137,14 +139,18 @@ begin
 
             else
 
+
                 -- ####################### --
                 --     STATE MACHINERY     --
                 -- ####################### --
                 case state is
 
+
+
                     when ROM_INIT =>
 
                         state <= FETCH;
+
 
                     when FETCH =>
 
@@ -181,6 +187,7 @@ begin
                         -- Error
 
                         end case;
+
 
                     when DECODE =>
 
@@ -226,11 +233,16 @@ begin
                         state <= EXECUTE;
                         rstate <= RAM_INIT;
 
+
                     when EXECUTE =>
 
+
                         case OP is
+
+
                             when rv32i_lui =>
                                 rv32i_execute_lui(IMM, GPR_RD, state);
+
 
                             when rv32i_auipc =>
                                 rv32i_execute_auipc(IMM, PC, GPR_RD, state);
@@ -238,6 +250,7 @@ begin
                             when rv32i_jal =>
                                 rv32i_execute_jal(IMM, PC, nPC, GPR_RD, state);
 
+                            /*
                             when rv32i_jalr =>
                                 rv32i_execute_jalr(IMM, PC, GPR_RS1, nPC, GPR_RD, state);
 
@@ -263,10 +276,13 @@ begin
                             when rv32i_system =>
                                 state <= WRITEBACK;
                             -- Ignore for now
+                            */
 
                             when others =>
 
+
                         end case;
+
 
                     when WRITEBACK =>
 
@@ -281,10 +297,13 @@ begin
 
                 end case;
 
+
             end if;
 
         end if;
 
+
     end process;
+
 
 end rtl;
