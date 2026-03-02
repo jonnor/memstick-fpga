@@ -1,4 +1,4 @@
-TOP    = max1000_riscv_top
+TOP    = max1000_blinky
 JSON   = $(TOP).json
 YOSYS  = yosys -m ghdl
 GHDL   = ghdl
@@ -33,8 +33,7 @@ UTILS_SRCS = lib/utils/cdc_sync.vhd \
              lib/utils/uart_tx_iso.vhd \
              lib/utils/uart_tx.vhd
 
-WORK_SRCS = projects/max1000_riscv/sys_pll.vhd \
-            projects/max1000_riscv/max1000_riscv_top.vhd
+WORK_SRCS = projects/max1000_blinky/max1000_blinky.vhd
 
 .PHONY: all clean analyze-libs analyze-work
 
@@ -54,7 +53,7 @@ analyze-work: analyze-libs
 	$(GHDL) -a $(GHDL_FLAGS) --work=work $(WORK_SRCS)
 
 $(JSON): analyze-work
-	$(YOSYS) -p 'ghdl $(GHDL_FLAGS) $(WORK_SRCS) -e $(TOP); synth_intel_altera -family max10 -json $@'
+	$(YOSYS) -p 'ghdl $(GHDL_FLAGS) $(WORK_SRCS) -e $(TOP); synth_ice40 -json $@'
 
 clean:
 	rm -rf $(WDIR) $(JSON)
