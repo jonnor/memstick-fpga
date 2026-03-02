@@ -262,12 +262,14 @@ begin
 
                             when rv32i_s =>
                                 rv32i_execute_s(rstate, rreq, RW, MAR, offset, read2, write2, rack, FUNCT3, IMM, GPR_RS1, GPR_RS2, MDR_i, MDR_o, state);
+                            */
 
                             when rv32i_compi =>
                                 rv32i_execute_compi(FUNCT3, FUNCT7, RS2, GPR_RS1, IMM, GPR_RD, state);
 
                             when rv32i_compr =>
                                 rv32i_execute_compr(FUNCT3, FUNCT7, GPR_RS1, GPR_RS2, GPR_RD, state);
+
 
                             when rv32i_fence =>
                                 state <= WRITEBACK;
@@ -276,7 +278,7 @@ begin
                             when rv32i_system =>
                                 state <= WRITEBACK;
                             -- Ignore for now
-                            */
+
 
                             when others =>
 
